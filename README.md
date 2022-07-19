@@ -1,3 +1,13 @@
+## Dev
+
+```shell
+npm install --global typescript
+
+npm install
+npm run dev
+```
+
+
 ![Logo](https://user-images.githubusercontent.com/6104940/111038514-52a0f700-8421-11eb-824e-5f2d2d125005.png)
 
 # Three.js TypeScript Webpack Starter
