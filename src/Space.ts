@@ -31,7 +31,7 @@ export class Space
                 const obj = gltf.scene;
                 obj.scale.set(12, 9, 12);
                 obj.position.y = -695;
-                obj.position.x = -770;
+                obj.position.x = -720;
                 obj.position.z = 300;
                 this.mesh.add(obj);
             },

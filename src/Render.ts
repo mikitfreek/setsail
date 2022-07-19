@@ -60,7 +60,7 @@ export class Render
     }
 
     private readonly WIDTH = 128*6
-    private readonly BOUNDS = 512*3.5
+    private readonly BOUNDS = 512*3.35
     private readonly BOUNDS_HALF = this.BOUNDS * 0.5
 
     private simplex = new SimplexNoise();
@@ -70,7 +70,7 @@ export class Render
      */
     constructor()
     {
-        this.camera = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 10000);
+        this.camera = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 20000);
         this.camera.position.z = 400;
 
         this.scene = new Scene();
@@ -325,9 +325,13 @@ export class Render
     
         //~~ Sets the uniforms with the material values
         // material.uniforms['diffuse'].value = material.color;
+        material.uniforms.diffuse.value.setHex( 0x58b0bd );
         // material.uniforms['specular'].value = material.specular;
+        material.uniforms.specular.value.setHex( 0x111111 );
         // material.uniforms['shininess'].value = Math.max(material.shininess, 1e-4);
-        material.uniforms['opacity'].value = material.opacity;
+        material.uniforms.shininess.value = Math.max(20, 1e-4);
+        // material.uniforms['opacity'].value = material.opacity;
+        material.uniforms.opacity.value = 1;
     
         // Defines
         material.defines.WIDTH = this.WIDTH.toFixed(1);
