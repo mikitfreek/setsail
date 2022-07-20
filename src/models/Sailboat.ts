@@ -100,7 +100,7 @@ export class Sailboat
         if(controls.right && this.rudderdeg < 1) setInterval(() => this.rudderdeg += 0.00005, 25);
         if(controls.left && this.rudderdeg > -1) setInterval(() => this.rudderdeg -= 0.00005, 25);
         
-        //console.log("deg: " + this.rudderdeg);
+        console.log("deg: " + this.rudderdeg);
 
         let x = 0,
             y = 0,
@@ -117,8 +117,8 @@ export class Sailboat
         // update the transformation of the camera so it has an offset position to the current target
         //const camOffset = this.user.mesh.position.distanceTo(this.camera.position);
         //this.user.direction.subVectors( this.camera.position, this.controls.target );
-        //this.user.direction.normalize().multiplyScalar( camOffset );
-        //this.camera.position.copy( this.user.direction.add( this.controls.target ) );
+        // this.user.direction.normalize().multiplyScalar( camOffset );
+        // this.camera.position.copy( this.user.direction.add( this.controls.target ) );
 
         //x lewo
         //-x prawo
@@ -134,7 +134,9 @@ export class Sailboat
         // If we're not static
         if (this.direction.x !== 0 || this.direction.z !== 0) {
             // Rotate the character
-            this.rotate();
+
+            // this.rotate();
+
             // Move the character
             if (this.direction.x !== 0 || this.direction.z !== 0) this.move();
             return true;
@@ -174,5 +176,7 @@ export class Sailboat
         this.mesh.position.z += this.direction.z * ((this.direction.x === 0) ? Math.sqrt(this.vel) : this.vel / 1.5);//Math.sqrt(vel));
         // Now let's use Sine and Cosine curves, using our "step" property ...
         this.step += 1 / 4;
+
+        this.mesh.position.x = 500
     }
 }

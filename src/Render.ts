@@ -15,13 +15,21 @@ import { Water2 } from 'three/examples/jsm/objects/Water2.js'
 import { GPUComputationRenderer } from 'three/examples/jsm/misc/GPUComputationRenderer.js'
 import { SimplexNoise } from 'three/examples/jsm/math/SimplexNoise.js'
 
-import { Sailboat } from './Sailboat'
-import { Space } from './Space'
-
+// components
 import { heightmapFragmentShader, smoothFragmentShader, readWaterLevelFragmentShader, waterVertexShader } from './Shaders'
+
+import { Controls } from './Controls' 
+
+// models
+import { Space } from './models/Space'
+import { Sailboat } from './models/Sailboat'
+import { Kraken } from './models/Kraken'
+
 
 export class Render 
 {
+    // public getRender: Render
+
     private camera: PerspectiveCamera
     private scene: Scene
     private renderer: WebGLRenderer
@@ -32,6 +40,8 @@ export class Render
     private Sailer: Sailboat
     private water: any
 
+    private controls: any
+    private keyControls: any
     // private container: any
     // private stats: any
     private mouseMoved = false
@@ -70,6 +80,7 @@ export class Render
      */
     constructor()
     {
+        // this.getRender = this
         this.camera = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 20000);
         this.camera.position.z = 400;
 
@@ -129,10 +140,16 @@ export class Render
         this.Map = new Space();
         this.Sailer = new Sailboat();
 
+        this.keyControls = new Controls();
+        // this.setControls()
+
+        const _Kraken = new Kraken();
+
         this.Sailer.mesh.userData.velocity = new Vector3();
         
         this.scene.add(this.Map.mesh);
         this.scene.add(this.Sailer.mesh);
+        this.scene.add(_Kraken.mesh);
 
         // this.Sailer.vel = 1;
 
@@ -154,6 +171,10 @@ export class Render
         //
         // document.body.style.touchAction = 'none';
         document.body.addEventListener('pointermove', (e) => this.onPointerMove(e));
+        
+        document.addEventListener('keydown', (e) => this.keyControls.keyDown(e, this.Sailer));
+        document.addEventListener('keyup', (e) => this.keyControls.keyUp(e, this.Sailer));
+        
         // const en = {
         //     x: 1,
         //     y: 1
@@ -226,6 +247,10 @@ export class Render
 
     //////////////////
 
+    // public getSailer() {
+    //     return this.Sailer
+    // }
+
     private sailerDynamics() {
 
         const currentRenderTarget = this.gpuCompute.getCurrentRenderTarget(this.heightmapVariable);
@@ -239,10 +264,12 @@ export class Render
             // if (sphere) {
                 const sensitivity = 0.5
                 const distance = 0.5
-                const velocity = 0.3
+                
+                const waterScalar = 0.01 //0.1
+
                 const position = 0.001
-                const waterScalar = 0.1
-            
+                const velocity = 0.3
+                
                 // Read water level and orientation
                 const u = sensitivity * this.Sailer.mesh.position.x / this.BOUNDS_HALF + distance;
                 const v = 1 - (sensitivity * this.Sailer.mesh.position.z / this.BOUNDS_HALF + distance);

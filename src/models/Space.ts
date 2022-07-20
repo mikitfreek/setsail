@@ -1,4 +1,4 @@
-import THREE, { Object3D, Vector2, Vector3, Raycaster, Mesh } from "three";
+import THREE, { Object3D } from "three"; //, Vector2, Vector3, Raycaster, Mesh
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
