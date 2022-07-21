@@ -1,3 +1,5 @@
+import { Sailboat } from '../models/Sailboat'
+
 export class Controls
 {
     private controls: any
@@ -11,7 +13,7 @@ export class Controls
         }
     }
 
-    public keyDown(e: any, user: any) {
+    public keyDown(e: KeyboardEvent, user: Sailboat) {
         let prevent = true
         // Update the state of the attached control to "true"
         switch (e.key) { //keyCode) { //e code
@@ -40,7 +42,7 @@ export class Controls
         user.setDirection(this.controls)
     }
 
-    public keyUp(e: any, user: any) {
+    public keyUp(e: KeyboardEvent, user: Sailboat) {
         let prevent = true
         // Update the state of the attached control to "false"
         switch (e.key) {
