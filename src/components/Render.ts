@@ -21,9 +21,9 @@ import { heightmapFragmentShader, smoothFragmentShader, readWaterLevelFragmentSh
 import { Controls } from './Controls' 
 
 // models
-import { Space } from './models/Space'
-import { Sailboat } from './models/Sailboat'
-import { Kraken } from './models/Kraken'
+import { Space } from '../models/Space'
+import { Sailboat } from '../models/Sailboat'
+import { Kraken } from '../models/Kraken'
 
 
 export class Render 
@@ -265,7 +265,7 @@ export class Render
                 const sensitivity = 0.5
                 const distance = 0.5
                 
-                const waterScalar = 0.01 //0.1
+                const waterScalar = 0.03 //0.1 mass?
 
                 const position = 0.001
                 const velocity = 0.3
@@ -290,9 +290,10 @@ export class Render
                 // Move sphere
                 this.waterNormal.multiplyScalar(waterScalar);
                 this.Sailer.mesh.userData.velocity.add(this.waterNormal);
-                this.Sailer.mesh.userData.velocity.multiplyScalar(0.998);
+                this.Sailer.mesh.userData.velocity.multiplyScalar(1);
                 pos.add(this.Sailer.mesh.userData.velocity);
 
+                // Bounds
                 if (pos.x < - this.BOUNDS_HALF) {
 
                     pos.x = - this.BOUNDS_HALF + position;

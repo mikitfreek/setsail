@@ -1,3 +1,10 @@
-import { Render } from './Render'
+import { Render } from './components/Render'
 
-new Render();
+export class App 
+{
+    constructor() {
+        return new Render()
+    }
+}
+
+new App()
